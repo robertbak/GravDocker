@@ -10,7 +10,7 @@ fs.readFile('Dockerfile.template', 'utf8', function(err, data) {
   grav_versions.map(function(grav_version, index) {
     fs.mkdir('../dockerfiles/base/' + grav_version, function(e) {
       var dockerfileText = data.replace('${grav_version}', grav_version);
-      dockerfileText = dockerfileText.replace('${directoryInZip}', '')
+      dockerfileText =  dockerfileText.split('${directoryInZip}').join('')
       fs.writeFile('../dockerfiles/base/' + grav_version + '/Dockerfile', dockerfileText);
       if (index === grav_versions.length - 1) {
         fs.writeFile('../dockerfiles/base/Dockerfile', dockerfileText);
@@ -21,7 +21,7 @@ fs.readFile('Dockerfile.template', 'utf8', function(err, data) {
   grav_versions.map(function(grav_version, index) {
     fs.mkdir('../dockerfiles/admin/' + grav_version, function(e) {
       var dockerfileText = data.replace('${grav_version}', grav_version);
-      dockerfileText = dockerfileText.replace('${directoryInZip}', '-admin')
+      dockerfileText = dockerfileText.split('${directoryInZip}').join('-admin')
       fs.writeFile('../dockerfiles/admin/' + grav_version + '/Dockerfile', dockerfileText);
       if (index === grav_versions.length - 1) {
         fs.writeFile('../dockerfiles/admin/Dockerfile', dockerfileText);

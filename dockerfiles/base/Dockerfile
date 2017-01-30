@@ -1,27 +1,26 @@
-FROM gliderlabs / alpine: edge
-MAINTAINER Robert Bak < contact @robertbak.com >
+FROM gliderlabs/alpine:edge
+MAINTAINER Robert Bak <contact@robertbak.com>
 
-# Credit: Based on https: //github.com/ulsmith/alpine-apache-php7
+# Credit: Based on https://github.com/ulsmith/alpine-apache-php7
 
 # Add repo for php7
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk / repositories
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
-RUN apk update && apk upgrade && apk add\
-bash apache2 php7 - apache2 curl unzip\
-php7\
-php7 - mcrypt\
-php7 - gd\
-php7 - mbstring\
-php7 - curl\
-php7 - zip\
-php7 - xml\
-php7 - ctype\
-php7 - json\
-php7 - session\
-php7 - openssl\ &&
-    cp / usr / bin / php7 / usr / bin / php\ &&
-    rm - f /
-    var / cache / apk
+RUN apk update && apk upgrade && apk add \
+    bash apache2 php7-apache2 curl unzip \
+    php7 \
+    php7-mcrypt \
+    php7-gd \
+    php7-mbstring \
+    php7-curl \
+    php7-zip \
+    php7-xml \
+    php7-ctype \
+    php7-json \
+    php7-session \
+    php7-openssl \ 
+    && cp /usr/bin/php7 /usr/bin/php \
+    && rm -f /var/cache/apk/*
 
 RUN mkdir /run/apache2 \
     && sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
@@ -41,7 +40,7 @@ ENV GRAV_VERSION 1.1.15
 RUN curl -o /tmp/grav.zip -J -L https://getgrav.org/download/core/grav/$GRAV_VERSION \
     && unzip /tmp/grav.zip -d /tmp/ \
     && rm /tmp/grav.zip \
-    && mv /tmp/grav${directoryInZip}/* /app/public/ \
+    && mv /tmp/grav/* /app/public/ \
     && cp /app/public/webserver-configs/htaccess.txt /app/public/.htaccess
 
 RUN chmod -R 777 /app  \
