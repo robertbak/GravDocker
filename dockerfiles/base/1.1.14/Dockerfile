@@ -19,6 +19,7 @@ RUN apk update && apk upgrade && apk add \
     php7-json \
     php7-session \
     php7-openssl \ 
+    php7-dom \
     && cp /usr/bin/php7 /usr/bin/php \
     && rm -f /var/cache/apk/*
 
