@@ -23,6 +23,7 @@ RUN apk update && apk upgrade && apk add \
     && cp /usr/bin/php7 /usr/bin/php \
     && rm -f /var/cache/apk/*
 
+
 RUN mkdir /run/apache2 \
     && sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
     && sed -i "s/#LoadModule\ session_module/LoadModule\ session_module/" /etc/apache2/httpd.conf \
@@ -36,12 +37,14 @@ RUN mkdir /run/apache2 \
     
 RUN mkdir /app && mkdir /app/public
 
+ADD init.sh /app/
+
 ENV GRAV_VERSION 1.1.14
 
-RUN curl -o /tmp/grav.zip -J -L https://getgrav.org/download/core/grav-admin/$GRAV_VERSION \
+RUN curl -o /tmp/grav.zip -J -L https://getgrav.org/download/core/grav/$GRAV_VERSION \
     && unzip /tmp/grav.zip -d /tmp/ \
     && rm /tmp/grav.zip \
-    && mv /tmp/grav-admin/* /app/public/ \
+    && mv /tmp/grav/* /app/public/ \
     && cp /app/public/webserver-configs/htaccess.txt /app/public/.htaccess
 
 RUN chmod -R 777 /app  \
@@ -51,4 +54,4 @@ RUN chmod -R 777 /app  \
     && chmod -R 777  /run/apache2/
 
 EXPOSE 8080
-ENTRYPOINT ["httpd","-D","FOREGROUND"]
+ENTRYPOINT ["app/init.sh"]
