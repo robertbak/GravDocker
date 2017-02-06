@@ -37,8 +37,6 @@ RUN mkdir /run/apache2 \
     
 RUN mkdir /app && mkdir /app/public
 
-ADD init.sh /app/
-
 ENV GRAV_VERSION 1.1.15
 
 RUN curl -o /tmp/grav.zip -J -L https://getgrav.org/download/core/grav/$GRAV_VERSION \
@@ -52,6 +50,8 @@ RUN chmod -R 777 /app  \
     && ln -sf /dev/stderr /var/log/apache2/error.log \
     && chmod -R 777  /var/log/apache2/ \
     && chmod -R 777  /run/apache2/
+    
+ADD init.sh /app/    
 
 EXPOSE 8080
 ENTRYPOINT ["app/init.sh"]
