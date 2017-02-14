@@ -4,4 +4,4 @@ if [ -n "${INSTALL##+([[:space:]])}" ]; then
   bin/gpm install ${INSTALL} -y
 fi
 
-httpd
+httpd -D FOREGROUND
