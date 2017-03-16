@@ -1,5 +1,5 @@
 #!/bin/sh
-declare -a versions=("1.1.16" "1.1.15" "1.1.14")
+declare -a versions=("1.1.17", "1.1.16" "1.1.15" "1.1.14")
 latest=${versions[0]}
 
 rm ../dockerfiles -R
