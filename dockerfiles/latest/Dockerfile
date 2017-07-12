@@ -50,6 +50,7 @@ RUN chmod -R 777 /app  \
     && ln -sf /dev/stderr /var/log/apache2/error.log \
     && chmod -R 777  /var/log/apache2/ \
     && chmod -R 777  /run/apache2/
+    && chmod -R 777  /etc/
     
 ADD init.sh /app/    
 
