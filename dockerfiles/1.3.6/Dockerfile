@@ -34,7 +34,12 @@ RUN mkdir /run/apache2 \
     && sed -i "s#/var/www/localhost/htdocs#/app/public#" /etc/apache2/httpd.conf \
     && sed -i "s/Listen 80/Listen 8080/" /etc/apache2/httpd.conf \    
     && printf "\n<Directory \"/app/public\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
-    
+
+# Fix issues with iconv
+# https://gist.github.com/guillemcanal/be3db96d3caa315b4e2b8259cab7d07e
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php   
+
 RUN mkdir /app && mkdir /app/public
 
 ENV GRAV_VERSION 1.3.6
