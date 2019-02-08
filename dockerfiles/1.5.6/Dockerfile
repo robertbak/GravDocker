@@ -37,7 +37,7 @@ RUN mkdir /run/apache2 \
 
 RUN mkdir /app && mkdir /app/public
 
-ENV GRAV_VERSION 1.5.8
+ENV GRAV_VERSION 1.5.6
 
 RUN curl -o /tmp/grav.zip -J -L https://getgrav.org/download/core/grav/$GRAV_VERSION \
     && unzip /tmp/grav.zip -d /tmp/ \
