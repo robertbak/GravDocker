@@ -36,7 +36,7 @@ RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apac
 
 RUN mkdir /app && mkdir /app/public
 
-ENV GRAV_VERSION 1.6.11
+ENV GRAV_VERSION 1.6.16
 
 RUN curl -o /tmp/grav.zip -J -L https://getgrav.org/download/core/grav/$GRAV_VERSION \
     && unzip /tmp/grav.zip -d /tmp/ \
